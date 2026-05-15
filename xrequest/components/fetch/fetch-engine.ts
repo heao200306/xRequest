@@ -5,7 +5,7 @@ import type {
   RequestError,
   RequestHeaders,
   GlobalConfig,
-} from '@xrequest/core';
+} from '../core';
 import {
   buildURL,
   mergeHeaders,
@@ -15,7 +15,7 @@ import {
   isBlob,
   isArrayBuffer,
   isURLSearchParams,
-} from '@xrequest/core';
+} from '../core';
 
 export class FetchEngine implements EngineAdapter {
   readonly name: 'fetch' = 'fetch';

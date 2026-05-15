@@ -10,7 +10,7 @@ on:
 
 jobs:
   publish:
-    name: Publish Packages v${{ github.event.inputs.version }}
+    name: Publish xrequest v${{ github.event.inputs.version }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,92 +30,25 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Build all packages
+      - name: Build xrequest package
         run: |
-          pnpm build:core
-          pnpm build:xhr
-          pnpm build:fetch
-          pnpm build:entry
-          pnpm build:main
-
-      - name: Update @xrequest/core version
-        run: |
-          cd packages/core
-          npm version ${{ github.event.inputs.version }} --no-git-tag-version
+          cd packages/xrequest
+          pnpm build
           cd ../..
 
-      - name: Publish @xrequest/core
-        run: |
-          cd packages/core
-          npm publish --access public
-          cd ../..
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Update @xrequest/xhr version
-        run: |
-          cd packages/xhr
-          npm version ${{ github.event.inputs.version }} --no-git-tag-version
-          sed -i 's/"@xrequest\/core": "workspace:\*"/"@xrequest\/core": "${{ github.event.inputs.version }}"/' package.json
-          cd ../..
-
-      - name: Publish @xrequest/xhr
-        run: |
-          cd packages/xhr
-          npm publish --access public
-          cd ../..
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Update @xrequest/fetch version
-        run: |
-          cd packages/fetch
-          npm version ${{ github.event.inputs.version }} --no-git-tag-version
-          sed -i 's/"@xrequest\/core": "workspace:\*"/"@xrequest\/core": "${{ github.event.inputs.version }}"/' package.json
-          cd ../..
-
-      - name: Publish @xrequest/fetch
-        run: |
-          cd packages/fetch
-          npm publish --access public
-          cd ../..
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Update @xrequest/entry version
-        run: |
-          cd packages/entry
-          npm version ${{ github.event.inputs.version }} --no-git-tag-version
-          sed -i 's/"@xrequest\/core": "workspace:\*"/"@xrequest\/core": "${{ github.event.inputs.version }}"/' package.json
-          sed -i 's/"@xrequest\/xhr": "workspace:\*"/"@xrequest\/xhr": "${{ github.event.inputs.version }}"/' package.json
-          sed -i 's/"@xrequest\/fetch": "workspace:\*"/"@xrequest\/fetch": "${{ github.event.inputs.version }}"/' package.json
-          cd ../..
-
-      - name: Publish @xrequest/entry
-        run: |
-          cd packages/entry
-          npm publish --access public
-          cd ../..
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Update xrequest version
+      - name: Update version
         run: |
           cd packages/xrequest
           npm version ${{ github.event.inputs.version }} --no-git-tag-version
-          sed -i 's/"@xrequest\/core": "workspace:\*"/"@xrequest\/core": "${{ github.event.inputs.version }}"/' package.json
-          sed -i 's/"@xrequest\/xhr": "workspace:\*"/"@xrequest\/xhr": "${{ github.event.inputs.version }}"/' package.json
-          sed -i 's/"@xrequest\/fetch": "workspace:\*"/"@xrequest\/fetch": "${{ github.event.inputs.version }}"/' package.json
-          sed -i 's/"@xrequest\/entry": "workspace:\*"/"@xrequest\/entry": "${{ github.event.inputs.version }}"/' package.json
           cd ../..
 
-      - name: Publish xrequest
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd packages/xrequest
           npm publish --access public
           cd ../..
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create Git Tag
         run: |

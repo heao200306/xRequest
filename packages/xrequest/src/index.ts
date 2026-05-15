@@ -1,4 +1,4 @@
-export { xrequest, XRequest } from '@xrequest/entry';
+export { XRequest, xrequest } from './xrequest';
 export type {
   RequestConfig,
   Response,
@@ -13,5 +13,12 @@ export type {
   RequestHeaders,
   XRequestStatic,
   XRequestInstance,
-} from '@xrequest/core';
-export { EngineManager } from '@xrequest/entry';
+  Interceptors,
+  ProgressEvent,
+  InterceptorId,
+  InterceptorRequestHook,
+  InterceptorResponseHook,
+} from './types';
+export { EngineManager } from './engine-manager';
+export { XHREngine } from './xhr-engine';
+export { FetchEngine } from './fetch-engine';

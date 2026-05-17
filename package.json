@@ -1,6 +1,6 @@
 {
   "name": "xrequest",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A lightweight HTTP request library with dual-engine support (XHR & Fetch)",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

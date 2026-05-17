@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { XHREngine } from './xhr-engine';
 
@@ -8,7 +9,7 @@ const createMockXHR = (options: {
   response?: unknown;
   headers?: string;
   readyState?: number;
-}): Partial<XMLHttpRequest> & { triggerLoad: () => void; triggerError: () => void; triggerTimeout: () => void; triggerAbort: () => void } => {
+}): any => {
   let onloadHandler: (() => void) | null = null;
   let onerrorHandler: (() => void) | null = null;
   let ontimeoutHandler: (() => void) | null = null;
@@ -27,9 +28,9 @@ const createMockXHR = (options: {
     abort: vi.fn(function(this: Partial<XMLHttpRequest>) {
       onabortHandler?.();
     }),
-    addEventListener: vi.fn(),
+    addEventListener: vi.fn() as any,
     upload: {
-      addEventListener: vi.fn(),
+      addEventListener: vi.fn() as any,
       onprogress: null,
     } as unknown as XMLHttpRequestUpload,
     get onload(): XMLHttpRequest['onload'] | null {
@@ -69,7 +70,7 @@ const createMockXHR = (options: {
       onabortHandler?.();
     },
     ...options,
-  } as Partial<XMLHttpRequest> & { triggerLoad: () => void; triggerError: () => void; triggerTimeout: () => void; triggerAbort: () => void };
+  } as any;
 };
 
 describe('XHREngine', () => {

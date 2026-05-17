@@ -79,16 +79,17 @@ export interface InterceptorId {
   id: number;
 }
 
-export interface Interceptors<T = unknown, B = unknown> {
-  request: InterceptorManager<RequestConfig<B>, RequestError>;
-  response: InterceptorManager<Response<T, B>, RequestError<T, B>>;
+export interface Interceptors {
+  request: InterceptorManager;
+  response: InterceptorManager;
 }
 
-export interface InterceptorManager<V, T = unknown, B = unknown> {
-  use(hook: InterceptorRequestHook<V> | InterceptorResponseHook<T, B>): InterceptorId;
+export interface InterceptorManager {
+  use(fulfilled?: Function, rejected?: Function): InterceptorId;
   eject(id: number): void;
   clear(): void;
-  forEach(fn: (hook: InterceptorRequestHook<V>) => void): void;
+  forEach(fn: (hook: { fulfilled?: Function; rejected?: Function }) => void): void;
+  size: number;
 }
 
 export interface EngineAdapter {

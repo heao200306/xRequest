@@ -90,8 +90,8 @@ jobs:
         run: |
           pnpm install
 
-      - name: Run tests
-        run: pnpm test
+      - name: Run tests with coverage
+        run: pnpm test:coverage
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3

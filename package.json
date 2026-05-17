@@ -42,6 +42,7 @@
     "release:patch": "bumpp --commit --tag --push --patch"
   },
   "devDependencies": {
+    "@types/node": "^25.8.0",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
     "@vitest/coverage-v8": "^1.2.0",

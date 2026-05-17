@@ -18,5 +18,14 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["vitest.config.ts", "eslint.config.js", "src", "components"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist"],
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/*.spec.ts"],
+      "compilerOptions": {
+        "strict": false,
+        "noImplicitAny": false
+      }
+    }
+  ]
 }

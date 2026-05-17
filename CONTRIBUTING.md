@@ -1,14 +1,14 @@
-# Contributing to xRequest
+# Contributing to genericRequest
 
-Thank you for your interest in contributing to xRequest!
+Thank you for your interest in contributing to genericRequest!
 
 ## Getting Started
 
 1. Fork the repository
 2. Clone your fork:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/xrequest.git
-   cd xrequest
+   git clone https://github.com/YOUR_USERNAME/genericRequest.git
+   cd genericRequest
    ```
 3. Install dependencies:
    ```bash
@@ -28,16 +28,16 @@ Thank you for your interest in contributing to xRequest!
 
 ### Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm build` | Build all packages |
-| `pnpm dev` | Run in development mode |
-| `pnpm test` | Run unit tests |
-| `pnpm test:watch` | Run tests in watch mode |
-| `pnpm test:coverage` | Run tests with coverage |
-| `pnpm lint` | Run ESLint |
-| `pnpm lint:fix` | Auto-fix ESLint issues |
-| `pnpm typecheck` | Run TypeScript type checking |
+| Command              | Description                  |
+| -------------------- | ---------------------------- |
+| `pnpm build`         | Build all packages           |
+| `pnpm dev`           | Run in development mode      |
+| `pnpm test`          | Run unit tests               |
+| `pnpm test:watch`    | Run tests in watch mode      |
+| `pnpm test:coverage` | Run tests with coverage      |
+| `pnpm lint`          | Run ESLint                   |
+| `pnpm lint:fix`      | Auto-fix ESLint issues       |
+| `pnpm typecheck`     | Run TypeScript type checking |
 
 ### Package Structure
 
@@ -47,7 +47,7 @@ packages/
 ├── xhr/           # XMLHttpRequest engine
 ├── fetch/         # Fetch API engine
 ├── entry/         # Internal entry with interceptors
-└── xrequest-main/ # Main package for npm distribution
+└── genericRequest-main/ # Main package for npm distribution
 ```
 
 When contributing, you may need to modify one or more of these packages.
@@ -89,6 +89,7 @@ When contributing, you may need to modify one or more of these packages.
 ### PR Title Format
 
 Use conventional commit format:
+
 - `feat: add new feature`
 - `fix: resolve bug`
 - `docs: update documentation`

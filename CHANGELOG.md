@@ -24,10 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Packages
 
-- `@xrequest/core` - Core types and utilities
-- `@xrequest/xhr` - XMLHttpRequest engine implementation
-- `@xrequest/fetch` - Fetch API engine implementation
-- `@xrequest/entry` - Internal entry implementation
-- `xrequest` - Main entry point for npm distribution
+- `@genericRequest/core` - Core types and utilities
+- `@genericRequest/xhr` - XMLHttpRequest engine implementation
+- `@genericRequest/fetch` - Fetch API engine implementation
+- `@genericRequest/entry` - Internal entry implementation
+- `genericRequest` - Main entry point for npm distribution
 
-[1.0.0]: https://github.com/xrequest/xrequest/releases/tag/v1.0.0
+[1.0.0]: https://github.com/genericRequest/genericRequest/releases/tag/v1.0.0

@@ -10,7 +10,7 @@ on:
 
 jobs:
   publish:
-    name: Publish xrequest v${{ github.event.inputs.version }}
+    name: Publish generic-request v${{ github.event.inputs.version }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,12 +30,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install xrequest dependencies
+      - name: Install generic-request dependencies
         run: |
 
           pnpm install
 
-      - name: Build xrequest package
+      - name: Build generic-request package
         run: |
 
           pnpm build

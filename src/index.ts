@@ -1,4 +1,4 @@
-export { XRequest, xrequest } from '../components/entry/xrequest';
+export { GenericRequest, genericRequest } from '../components/entry/genericRequest';
 export type {
   RequestConfig,
   Response,
@@ -11,8 +11,8 @@ export type {
   DownloadProgressEvent,
   ResponseType,
   RequestHeaders,
-  XRequestStatic,
-  XRequestInstance,
+  GenericRequestStatic,
+  GenericRequestInstance,
   Interceptors,
   ProgressEvent,
   InterceptorId,

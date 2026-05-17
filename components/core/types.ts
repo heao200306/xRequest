@@ -113,7 +113,7 @@ export interface GlobalConfig {
   onDownloadProgress?: (event: DownloadProgressEvent) => void;
 }
 
-export interface XRequestStatic {
+export interface GenericRequestStatic {
   <T = unknown, B = unknown>(config: RequestConfig<B>): Promise<Response<T, B>>;
   get<T = unknown, B = unknown>(url: string, config?: RequestConfig<B>): Promise<Response<T, B>>;
   post<T = unknown, B = unknown>(url: string, data?: B, config?: RequestConfig<B>): Promise<Response<T, B>>;
@@ -122,13 +122,13 @@ export interface XRequestStatic {
   patch<T = unknown, B = unknown>(url: string, data?: B, config?: RequestConfig<B>): Promise<Response<T, B>>;
   head<T = unknown, B = unknown>(url: string, config?: RequestConfig<B>): Promise<Response<T, B>>;
   options<T = unknown, B = unknown>(url: string, config?: RequestConfig<B>): Promise<Response<T, B>>;
-  create(config?: GlobalConfig): XRequestInstance;
+  create(config?: GlobalConfig): GenericRequestInstance;
   setEngine(engine: RequestEngineType): void;
   getEngine(): RequestEngineType;
   interceptors: Interceptors;
 }
 
-export interface XRequestInstance extends XRequestStatic {
+export interface GenericRequestInstance extends GenericRequestStatic {
   setConfig(config: Partial<GlobalConfig>): void;
   getConfig(): Readonly<GlobalConfig>;
 }

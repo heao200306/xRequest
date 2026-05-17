@@ -4,15 +4,15 @@ import type {
   RequestError,
   GlobalConfig,
   RequestEngineType,
-  XRequestStatic,
-  XRequestInstance,
+  GenericRequestStatic,
+  GenericRequestInstance,
   Interceptors,
 } from '../core';
 import { InterceptorManager } from './interceptor';
 import { EngineManager } from './engine-manager';
 import { mergeConfig, buildFullPath } from '../core';
 
-export class XRequest {
+export class GenericRequest {
   engineManager: EngineManager;
   globalConfig: GlobalConfig;
   requestInterceptors: InterceptorManager;
@@ -110,8 +110,8 @@ export class XRequest {
     });
   }
 
-  create(config?: GlobalConfig): XRequestInstance {
-    return new XRequest({ ...this.globalConfig, ...config }) as unknown as XRequestInstance;
+  create(config?: GlobalConfig): GenericRequestInstance {
+    return new GenericRequest({ ...this.globalConfig, ...config }) as unknown as GenericRequestInstance;
   }
 
   setEngine(engine: RequestEngineType): void {
@@ -224,50 +224,50 @@ export class XRequest {
   }
 }
 
-const defaultXRequest = new XRequest();
+const defaultGenericRequest = new GenericRequest();
 
-export const xrequest: XRequestStatic = function <T = unknown, B = unknown>(
+export const genericRequest: GenericRequestStatic = function <T = unknown, B = unknown>(
   config: RequestConfig<B>
 ): Promise<Response<T, B>> {
-  return defaultXRequest.request<T, B>(config);
-} as XRequestStatic;
+  return defaultGenericRequest.request<T, B>(config);
+} as GenericRequestStatic;
 
-xrequest.get = <T = unknown, B = unknown>(url: string, config?: RequestConfig<B>) =>
-  defaultXRequest.get<T, B>(url, config);
+genericRequest.get = <T = unknown, B = unknown>(url: string, config?: RequestConfig<B>) =>
+  defaultGenericRequest.get<T, B>(url, config);
 
-xrequest.post = <T = unknown, B = unknown>(url: string, data?: B, config?: RequestConfig<B>) =>
-  defaultXRequest.post<T, B>(url, data, config);
+genericRequest.post = <T = unknown, B = unknown>(url: string, data?: B, config?: RequestConfig<B>) =>
+  defaultGenericRequest.post<T, B>(url, data, config);
 
-xrequest.put = <T = unknown, B = unknown>(url: string, data?: B, config?: RequestConfig<B>) =>
-  defaultXRequest.put<T, B>(url, data, config);
+genericRequest.put = <T = unknown, B = unknown>(url: string, data?: B, config?: RequestConfig<B>) =>
+  defaultGenericRequest.put<T, B>(url, data, config);
 
-xrequest.delete = <T = unknown, B = unknown>(url: string, config?: RequestConfig<B>) =>
-  defaultXRequest.delete<T, B>(url, config);
+genericRequest.delete = <T = unknown, B = unknown>(url: string, config?: RequestConfig<B>) =>
+  defaultGenericRequest.delete<T, B>(url, config);
 
-xrequest.patch = <T = unknown, B = unknown>(url: string, data?: B, config?: RequestConfig<B>) =>
-  defaultXRequest.patch<T, B>(url, data, config);
+genericRequest.patch = <T = unknown, B = unknown>(url: string, data?: B, config?: RequestConfig<B>) =>
+  defaultGenericRequest.patch<T, B>(url, data, config);
 
-xrequest.head = <T = unknown, B = unknown>(url: string, config?: RequestConfig<B>) =>
-  defaultXRequest.head<T, B>(url, config);
+genericRequest.head = <T = unknown, B = unknown>(url: string, config?: RequestConfig<B>) =>
+  defaultGenericRequest.head<T, B>(url, config);
 
-xrequest.options = <T = unknown, B = unknown>(url: string, config?: RequestConfig<B>) =>
-  defaultXRequest.options<T, B>(url, config);
+genericRequest.options = <T = unknown, B = unknown>(url: string, config?: RequestConfig<B>) =>
+  defaultGenericRequest.options<T, B>(url, config);
 
-xrequest.create = (config?: GlobalConfig) => createMixedInstance(config || {});
+genericRequest.create = (config?: GlobalConfig) => createMixedInstance(config || {});
 
-xrequest.setEngine = (engine: RequestEngineType) => defaultXRequest.setEngine(engine);
+genericRequest.setEngine = (engine: RequestEngineType) => defaultGenericRequest.setEngine(engine);
 
-xrequest.getEngine = () => defaultXRequest.getEngine();
+genericRequest.getEngine = () => defaultGenericRequest.getEngine();
 
-xrequest.interceptors = defaultXRequest.interceptors;
+genericRequest.interceptors = defaultGenericRequest.interceptors;
 
-function createEngineInstance(engineType: RequestEngineType, globalConfig: GlobalConfig): XRequest {
-  const instance = new XRequest(globalConfig);
+function createEngineInstance(engineType: RequestEngineType, globalConfig: GlobalConfig): GenericRequest {
+  const instance = new GenericRequest(globalConfig);
   instance.setEngine(engineType);
   return instance;
 }
 
-function mixInstances(target: XRequest, sources: XRequest[]): XRequestInstance {
+function mixInstances(target: GenericRequest, sources: GenericRequest[]): GenericRequestInstance {    
   const mixedInstance = Object.create(Object.getPrototypeOf(target));
 
   const allMethods: Record<string, Function> = {};
@@ -367,13 +367,13 @@ function mixInstances(target: XRequest, sources: XRequest[]): XRequestInstance {
     configurable: true,
   });
 
-  return mixedInstance as XRequestInstance;
+  return mixedInstance as GenericRequestInstance;
 }
 
-export function createMixedInstance(config: GlobalConfig): XRequestInstance {
+export function createMixedInstance(config: GlobalConfig): GenericRequestInstance {
   const engineChain = config.engine ? (Array.isArray(config.engine) ? config.engine : [config.engine]) : ['fetch'];
 
-  const instances: XRequest[] = [];
+  const instances: GenericRequest[] = [];
   for (const engineType of engineChain) {
     instances.push(createEngineInstance(engineType, config));
   }
@@ -382,7 +382,7 @@ export function createMixedInstance(config: GlobalConfig): XRequestInstance {
   const sourceInstances = instances.slice(1);
 
   if (sourceInstances.length === 0) {
-    return targetInstance as unknown as XRequestInstance;
+    return targetInstance as unknown as GenericRequestInstance;
   }
 
   const mixed = mixInstances(targetInstance, sourceInstances);

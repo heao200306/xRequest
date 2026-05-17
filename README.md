@@ -1,4 +1,4 @@
-# xRequest
+# generic-request
 
 [English](./README.md) | [中文](./README_zh-CN.md)
 
@@ -17,40 +17,40 @@ A lightweight HTTP request library with dual-engine support (XHR & Fetch) based 
 
 This monorepo contains the following packages:
 
-| Package                              | Description                          |
-| ------------------------------------ | ------------------------------------ |
-| [xrequest](./packages/xrequest-main) | Main entry point for end users       |
-| [@xrequest/core](./packages/core)    | Core type definitions and utilities  |
-| [@xrequest/xhr](./packages/xhr)      | XMLHttpRequest engine implementation |
-| [@xrequest/fetch](./packages/fetch)  | Fetch API engine implementation      |
-| [@xrequest/entry](./packages/entry)  | Internal entry implementation        |
+| Package                                            | Description                          |
+| -------------------------------------------------- | ------------------------------------ |
+| [generic-request](./packages/generic-request-main) | Main entry point for end users       |
+| [@generic-request/core](./packages/core)           | Core type definitions and utilities  |
+| [@generic-request/xhr](./packages/xhr)             | XMLHttpRequest engine implementation |
+| [@generic-request/fetch](./packages/fetch)         | Fetch API engine implementation      |
+| [@generic-request/entry](./packages/entry)         | Internal entry implementation        |
 
 ## Installation
 
 ```bash
 # Using npm
-npm install xrequest
+npm install genericRequest
 
 # Using pnpm
-pnpm add xrequest
+pnpm add genericRequest
 
 # Using yarn
-yarn add xrequest
+yarn add genericRequest
 ```
 
 ## Quick Start
 
 ```typescript
-import xrequest from 'xrequest';
+import genericRequest from 'genericRequest';
 
 // Basic GET request
-const { data } = await xrequest.get('/api/users');
+const { data } = await genericRequest.get('/api/users');
 
 // POST request with data
-const { data } = await xrequest.post('/api/users', { name: 'John' });
+const { data } = await genericRequest.post('/api/users', { name: 'John' });
 
 // Full configuration
-const { data, meta } = await xrequest({
+const { data, meta } = await genericRequest({
   url: '/api/users',
   method: 'POST',
   data: { name: 'John' },
@@ -66,7 +66,7 @@ Configure multiple engines with automatic fallback:
 
 ```typescript
 // Fetch is primary, XHR is fallback
-const api = xrequest.create({
+const api = genericRequest.create({
   engine: ['fetch', 'xhr'],
   baseURL: 'https://api.example.com',
 });
@@ -99,7 +99,7 @@ api.interceptors.response.use(
 ## Configuration
 
 ```typescript
-const api = xrequest.create({
+const api = genericRequest.create({
   baseURL: 'https://api.example.com',
   timeout: 10000,
   headers: {
@@ -112,18 +112,18 @@ const api = xrequest.create({
 
 ## API Reference
 
-### xrequest
+### genericRequest
 
-| Method                                | Description     |
-| ------------------------------------- | --------------- |
-| `xrequest.get(url, config?)`          | GET request     |
-| `xrequest.post(url, data?, config?)`  | POST request    |
-| `xrequest.put(url, data?, config?)`   | PUT request     |
-| `xrequest.delete(url, config?)`       | DELETE request  |
-| `xrequest.patch(url, data?, config?)` | PATCH request   |
-| `xrequest.head(url, config?)`         | HEAD request    |
-| `xrequest.options(url, config?)`      | OPTIONS request |
-| `xrequest.request(config)`            | Generic request |
+| Method                                      | Description     |
+| ------------------------------------------- | --------------- |
+| `genericRequest.get(url, config?)`          | GET request     |
+| `genericRequest.post(url, data?, config?)`  | POST request    |
+| `genericRequest.put(url, data?, config?)`   | PUT request     |
+| `genericRequest.delete(url, config?)`       | DELETE request  |
+| `genericRequest.patch(url, data?, config?)` | PATCH request   |
+| `genericRequest.head(url, config?)`         | HEAD request    |
+| `genericRequest.options(url, config?)`      | OPTIONS request |
+| `genericRequest.request(config)`            | Generic request |
 
 ### Instance Methods
 
@@ -212,12 +212,12 @@ pnpm typecheck
 ## Project Structure
 
 ```
-xRequest/
+genericRequest/
 ├── packages/
 │   ├── core/           # Core types and utilities
 │   ├── xhr/            # XMLHttpRequest engine
 │   ├── fetch/          # Fetch API engine
-│   └── xrequest/       # Main entry point
+│   └── genericRequest/       # Main entry point
 ├── examples/           # Example code
 ├── .github/            # GitHub workflows and templates
 ├── vitest.config.ts    # Test configuration

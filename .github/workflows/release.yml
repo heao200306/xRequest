@@ -40,7 +40,7 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-      - name: Install xrequest dependencies
+      - name: Install generic-request dependencies
         run: |
 
           pnpm install

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { XRequest, xrequest, createMixedInstance } from './xrequest';
+import { genericRequest, genericRequest, createMixedInstance } from './genericRequest';
 import type { RequestConfig, Response, GlobalConfig, RequestEngineType } from '../core';
 
 const createMockResponse = <T, B>(data: T, meta?: Partial<Response<T, B>['meta']>): Response<T, B> => {
@@ -19,8 +19,8 @@ const createMockResponse = <T, B>(data: T, meta?: Partial<Response<T, B>['meta']
   };
 };
 
-describe('XRequest', () => {
-  // let engine: XRequest;
+describe('genericRequest', () => {
+  // let engine: genericRequest;
 
   beforeEach(() => {
     vi.restoreAllMocks();
@@ -32,8 +32,8 @@ describe('XRequest', () => {
 
   describe('constructor', () => {
     it('should create instance with default config', () => {
-      const instance = new XRequest();
-      expect(instance).toBeInstanceOf(XRequest);
+      const instance = new genericRequest();
+      expect(instance).toBeInstanceOf(genericRequest);
       expect(instance.globalConfig).toEqual({});
     });
 
@@ -42,13 +42,13 @@ describe('XRequest', () => {
         baseURL: 'https://api.example.com',
         timeout: 5000,
       };
-      const instance = new XRequest(config);
+      const instance = new genericRequest(config);
       expect(instance.globalConfig.baseURL).toBe('https://api.example.com');
       expect(instance.globalConfig.timeout).toBe(5000);
     });
 
     it('should initialize request and response interceptors', () => {
-      const instance = new XRequest();
+      const instance = new genericRequest();
       expect(instance.interceptors.request).toBeDefined();
       expect(instance.interceptors.response).toBeDefined();
     });
@@ -62,7 +62,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       const response = await instance.request({
@@ -81,7 +81,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest({
+      const instance = new genericRequest({
         baseURL: 'https://api.example.com',
         headers: { 'Authorization': 'Bearer token' },
       });
@@ -104,7 +104,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       const interceptorFn = vi.fn().mockImplementation((config) => {
@@ -132,7 +132,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       const responseInterceptorFn = vi.fn().mockImplementation((response) => {
@@ -161,7 +161,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       await instance.get('/api/items');
@@ -178,7 +178,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       await instance.post('/api/items', { name: 'test' });
@@ -195,7 +195,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       await instance.put('/api/items/1', { name: 'updated' });
@@ -212,7 +212,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       await instance.delete('/api/items/1');
@@ -229,7 +229,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       await instance.patch('/api/items/1', { name: 'patched' });
@@ -246,7 +246,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       await instance.head('/api/items/1');
@@ -263,7 +263,7 @@ describe('XRequest', () => {
         request: vi.fn().mockResolvedValue(mockResponse),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       await instance.options('/api/items');
@@ -276,13 +276,13 @@ describe('XRequest', () => {
 
   describe('engine management', () => {
     it('should set engine type', () => {
-      const instance = new XRequest();
+      const instance = new genericRequest();
       instance.setEngine('xhr');
       expect(instance.getEngine()).toBe('xhr');
     });
 
     it('should get current engine type', () => {
-      const instance = new XRequest();
+      const instance = new genericRequest();
       expect(instance.getEngine()).toBe('fetch');
 
       instance.setEngine('xhr');
@@ -290,7 +290,7 @@ describe('XRequest', () => {
     });
 
     it('should switch between engines', () => {
-      const instance = new XRequest();
+      const instance = new genericRequest();
       const fetchEngine = instance.engineManager.getEngineAdapter();
       expect(fetchEngine.name).toBe('fetch');
 
@@ -302,7 +302,7 @@ describe('XRequest', () => {
 
   describe('config management', () => {
     it('should update global config', () => {
-      const instance = new XRequest();
+      const instance = new genericRequest();
       instance.setConfig({
         baseURL: 'https://api.new.com',
         timeout: 3000,
@@ -313,7 +313,7 @@ describe('XRequest', () => {
     });
 
     it('should get current config', () => {
-      const instance = new XRequest({
+      const instance = new genericRequest({
         baseURL: 'https://api.example.com',
         timeout: 5000,
       });
@@ -324,7 +324,7 @@ describe('XRequest', () => {
     });
 
     it('should merge partial config updates', () => {
-      const instance = new XRequest({
+      const instance = new genericRequest({
         baseURL: 'https://api.example.com',
         timeout: 5000,
         headers: { 'Authorization': 'Bearer token' },
@@ -340,7 +340,7 @@ describe('XRequest', () => {
 
   describe('instance creation', () => {
     it('should create new instance with create method', () => {
-      const instance = new XRequest({
+      const instance = new genericRequest({
         baseURL: 'https://api.example.com',
       });
 
@@ -356,7 +356,7 @@ describe('XRequest', () => {
 
   describe('interceptors', () => {
     it('should add request interceptor', () => {
-      const instance = new XRequest();
+      const instance = new genericRequest();
       const interceptorId = instance.interceptors.request.use(
         (config) => config,
         (error) => Promise.reject(error)
@@ -366,7 +366,7 @@ describe('XRequest', () => {
     });
 
     it('should add response interceptor', () => {
-      const instance = new XRequest();
+      const instance = new genericRequest();
       const interceptorId = instance.interceptors.response.use(
         (response) => response,
         (error) => Promise.reject(error)
@@ -376,7 +376,7 @@ describe('XRequest', () => {
     });
 
     it('should eject interceptor', () => {
-      const instance = new XRequest();
+      const instance = new genericRequest();
       const interceptorId = instance.interceptors.request.use(
         (config) => config,
         (error) => Promise.reject(error)
@@ -387,7 +387,7 @@ describe('XRequest', () => {
     });
 
     it('should clear all interceptors', () => {
-      const instance = new XRequest();
+      const instance = new genericRequest();
       instance.interceptors.request.use((config) => config);
       instance.interceptors.response.use((response) => response);
 
@@ -405,7 +405,7 @@ describe('XRequest', () => {
         request: vi.fn().mockRejectedValue(mockError),
       };
 
-      const instance = new XRequest();
+      const instance = new genericRequest();
       (instance.engineManager as any).engines.set('fetch', mockEngineAdapter);
 
       const errorInterceptor = vi.fn();
@@ -426,7 +426,7 @@ describe('XRequest', () => {
   });
 });
 
-describe('xrequest', () => {
+describe('genericRequest', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
@@ -437,17 +437,17 @@ describe('xrequest', () => {
 
   describe('default export', () => {
     it('should be a function', () => {
-      expect(typeof xrequest).toBe('function');
+      expect(typeof genericRequest).toBe('function');
     });
 
     it('should have HTTP methods attached', () => {
-      expect(typeof xrequest.get).toBe('function');
-      expect(typeof xrequest.post).toBe('function');
-      expect(typeof xrequest.put).toBe('function');
-      expect(typeof xrequest.delete).toBe('function');
-      expect(typeof xrequest.patch).toBe('function');
-      expect(typeof xrequest.head).toBe('function');
-      expect(typeof xrequest.options).toBe('function');
+      expect(typeof genericRequest.get).toBe('function');
+      expect(typeof genericRequest.post).toBe('function');
+      expect(typeof genericRequest.put).toBe('function');
+      expect(typeof genericRequest.delete).toBe('function');
+      expect(typeof genericRequest.patch).toBe('function');
+      expect(typeof genericRequest.head).toBe('function');
+      expect(typeof genericRequest.options).toBe('function');
     });
   });
 });

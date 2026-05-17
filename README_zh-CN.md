@@ -1,4 +1,4 @@
-# xRequest
+# generic-request
 
 [English](./README.md) | [中文](./README_zh-CN.md)
 
@@ -17,40 +17,40 @@
 
 本 monorepo 包含以下包：
 
-| 包                                   | 描述                    |
-| ------------------------------------ | ----------------------- |
-| [xrequest](./packages/xrequest-main) | 主入口，面向终端用户    |
-| [@xrequest/core](./packages/core)    | 核心类型定义和工具函数  |
-| [@xrequest/xhr](./packages/xhr)      | XMLHttpRequest 引擎实现 |
-| [@xrequest/fetch](./packages/fetch)  | Fetch API 引擎实现      |
-| [@xrequest/entry](./packages/entry)  | 内部入口实现            |
+| 包                                                 | 描述                    |
+| -------------------------------------------------- | ----------------------- |
+| [generic-request](./packages/generic-request-main) | 主入口，面向终端用户    |
+| [@generic-request/core](./packages/core)           | 核心类型定义和工具函数  |
+| [@generic-request/xhr](./packages/xhr)             | XMLHttpRequest 引擎实现 |
+| [@generic-request/fetch](./packages/fetch)         | Fetch API 引擎实现      |
+| [@generic-request/entry](./packages/entry)         | 内部入口实现            |
 
 ## 安装
 
 ```bash
 # 使用 npm
-npm install xrequest
+npm install genericRequest
 
 # 使用 pnpm
-pnpm add xrequest
+pnpm add genericRequest
 
 # 使用 yarn
-yarn add xrequest
+yarn add genericRequest
 ```
 
 ## 快速开始
 
 ```typescript
-import xrequest from 'xrequest';
+import genericRequest from 'genericRequest';
 
 // 基础 GET 请求
-const { data } = await xrequest.get('/api/users');
+const { data } = await genericRequest.get('/api/users');
 
 // POST 请求
-const { data } = await xrequest.post('/api/users', { name: 'John' });
+const { data } = await genericRequest.post('/api/users', { name: 'John' });
 
 // 完整配置
-const { data, meta } = await xrequest({
+const { data, meta } = await genericRequest({
   url: '/api/users',
   method: 'POST',
   data: { name: 'John' },
@@ -66,7 +66,7 @@ const { data, meta } = await xrequest({
 
 ```typescript
 // Fetch 优先，XHR 作为后备
-const api = xrequest.create({
+const api = genericRequest.create({
   engine: ['fetch', 'xhr'],
   baseURL: 'https://api.example.com',
 });
@@ -99,7 +99,7 @@ api.interceptors.response.use(
 ## 配置
 
 ```typescript
-const api = xrequest.create({
+const api = genericRequest.create({
   baseURL: 'https://api.example.com',
   timeout: 10000,
   headers: {
@@ -112,18 +112,18 @@ const api = xrequest.create({
 
 ## API 参考
 
-### xrequest
+### genericRequest
 
-| 方法                                  | 描述         |
-| ------------------------------------- | ------------ |
-| `xrequest.get(url, config?)`          | GET 请求     |
-| `xrequest.post(url, data?, config?)`  | POST 请求    |
-| `xrequest.put(url, data?, config?)`   | PUT 请求     |
-| `xrequest.delete(url, config?)`       | DELETE 请求  |
-| `xrequest.patch(url, data?, config?)` | PATCH 请求   |
-| `xrequest.head(url, config?)`         | HEAD 请求    |
-| `xrequest.options(url, config?)`      | OPTIONS 请求 |
-| `xrequest.request(config)`            | 通用请求     |
+| 方法                                        | 描述         |
+| ------------------------------------------- | ------------ |
+| `genericRequest.get(url, config?)`          | GET 请求     |
+| `genericRequest.post(url, data?, config?)`  | POST 请求    |
+| `genericRequest.put(url, data?, config?)`   | PUT 请求     |
+| `genericRequest.delete(url, config?)`       | DELETE 请求  |
+| `genericRequest.patch(url, data?, config?)` | PATCH 请求   |
+| `genericRequest.head(url, config?)`         | HEAD 请求    |
+| `genericRequest.options(url, config?)`      | OPTIONS 请求 |
+| `genericRequest.request(config)`            | 通用请求     |
 
 ### 实例方法
 
@@ -212,12 +212,12 @@ pnpm typecheck
 ## 项目结构
 
 ```
-xRequest/
+genericRequest/
 ├── packages/
 │   ├── core/           # 核心类型和工具
 │   ├── xhr/           # XMLHttpRequest 引擎
 │   ├── fetch/         # Fetch API 引擎
-│   └── xrequest/      # 主入口
+│   └── genericRequest/      # 主入口
 ├── examples/          # 示例代码
 ├── .github/           # GitHub 工作流和模板
 ├── vitest.config.ts    # 测试配置

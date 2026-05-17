@@ -27,10 +27,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@xrequest/core': resolve(__dirname, 'components/core'),
-      '@xrequest/xhr': resolve(__dirname, 'components/xhr'),
-      '@xrequest/fetch': resolve(__dirname, 'components/fetch'),
-      '@xrequest/entry': resolve(__dirname, 'components/entry'),
+      '@generic-request/core': resolve(__dirname, 'components/core'),
+      '@generic-request/xhr': resolve(__dirname, 'components/xhr'),
+      '@generic-request/fetch': resolve(__dirname, 'components/fetch'),
+      '@generic-request/entry': resolve(__dirname, 'components/entry'),
     },
   },
 });

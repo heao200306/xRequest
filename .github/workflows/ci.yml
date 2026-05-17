@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install xrequest dependencies
+      - name: Install generic-request dependencies
         run: |
           pnpm install
 
@@ -57,7 +57,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install xrequest dependencies
+      - name: Install generic-request dependencies
         run: |
           pnpm install
 
@@ -86,7 +86,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install xrequest dependencies
+      - name: Install generic-request dependencies
         run: |
           pnpm install
 
@@ -114,7 +114,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install xrequest dependencies
+      - name: Install generic-request dependencies
         run: |
           pnpm install
 

@@ -32,17 +32,17 @@ jobs:
 
       - name: Install xrequest dependencies
         run: |
-          cd xrequest
+
           pnpm install
 
       - name: Build xrequest package
         run: |
-          cd xrequest
+
           pnpm build
 
       - name: Update version
         run: |
-          cd xrequest
+
           npm version ${{ github.event.inputs.version }} --no-git-tag-version
           cd ..
 
@@ -50,7 +50,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd xrequest
+
           npm publish --access public
 
       - name: Create Git Tag

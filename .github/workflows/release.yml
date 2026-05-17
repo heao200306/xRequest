@@ -42,12 +42,12 @@ jobs:
 
       - name: Install xrequest dependencies
         run: |
-          cd xrequest
+
           pnpm install
 
       - name: Run build
         run: |
-          cd xrequest
+
           pnpm build
 
       - name: Create Release
@@ -61,5 +61,5 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd xrequest
+
           npm publish --access public

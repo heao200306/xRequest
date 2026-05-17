@@ -30,12 +30,10 @@ jobs:
 
       - name: Install xrequest dependencies
         run: |
-          cd xrequest
           pnpm install
 
       - name: Run lint
         run: |
-          cd xrequest
           pnpm lint
 
   typecheck:
@@ -61,12 +59,10 @@ jobs:
 
       - name: Install xrequest dependencies
         run: |
-          cd xrequest
           pnpm install
 
       - name: Run typecheck
         run: |
-          cd xrequest
           pnpm typecheck
 
   test:
@@ -92,7 +88,6 @@ jobs:
 
       - name: Install xrequest dependencies
         run: |
-          cd xrequest
           pnpm install
 
       - name: Run tests
@@ -127,10 +122,8 @@ jobs:
 
       - name: Install xrequest dependencies
         run: |
-          cd xrequest
           pnpm install
 
       - name: Run build
         run: |
-          cd xrequest
           pnpm build

@@ -43,13 +43,13 @@ genericRequest/
 
 ```bash
 # Using npm
-npm install genericRequest
+npm install generic-request
 
 # Using pnpm
-pnpm add genericRequest
+pnpm add generic-request
 
 # Using yarn
-yarn add genericRequest
+yarn add generic-request
 ```
 
 ## Quick Start

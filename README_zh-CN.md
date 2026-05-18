@@ -43,13 +43,13 @@ genericRequest/
 
 ```bash
 # 使用 npm
-npm install genericRequest
+npm install generic-request
 
 # 使用 pnpm
-pnpm add genericRequest
+pnpm add generic-request
 
 # 使用 yarn
-yarn add genericRequest
+yarn add generic-request
 ```
 
 ## 快速开始
